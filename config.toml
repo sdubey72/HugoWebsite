@@ -1,3 +1,26 @@
-baseURL = "https://blogwithr.netlify.com/"
-languageCode = "en-us"
-title = "Blog With R"
+baseurl = "/"
+#baseurl = "https://example.com"
+languageCode = "en"
+defaultContentLanguage = "en"
+title = "Learining R world"
+theme = "hugo-theme-dream"
+
+#copyright = "Copyright (c) 2017, g1eny0ung; all rights reserved."
+
+# enableRobotsTXT = true
+
+# googleAnalytics = ""
+
+# disqusShortname = ""
+
+[params]
+  author = "Shraddha"
+  motto = "Exploring R Studio"
+  description = "Welcome to my blog. I am Data Science student at Mercyhurst university. This blog started as an effort to document the class room teachings and hope it helps you too !"
+  avatar = "img/defaultAvatar.jpg"
+  
+  email = "sdubey72@lakers.mercyhurst.edu"
+  github = "https://github.com/sdubey72"
+  linkedin = "https://www.linkedin.com/in/shraddha-dubey-8a8016b7/"
+  # codepen = ""
+  # stackoverflow = ""
