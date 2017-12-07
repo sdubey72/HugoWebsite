@@ -9,8 +9,18 @@ categories:
 tags: []
 ---
 
+# Creating Graphs
 
-```{r,warning=FALSE,}
+### Let's start by importing the libraries we will need to plot a graph.
+
+### We would need dplyr to do the data manipulations 
+
+### Lahman to get the data about all the baseball players for our plots
+
+### And lastly, ggplot2 and ggiraph are needed for the graphs.
+
+
+```{r Importing Libraries into the environment, echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
 library(dplyr)
 library(ggplot2)
 library(Lahman)
@@ -19,25 +29,56 @@ library(ggiraph)
 ```
 
 
-```{r}
+### Now that we have our libraries/packages, Let's do some data maipulation using dplyr
+
+### We will search for all the players who have homeruns more than 400 in their careers.
+
+### we will be using Batting table from Lahman package and grouping it by player_ids.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 df<-Batting%>%
   group_by(playerID)%>%
   summarise(Career_HR = sum(HR), Career_SO=sum(SO))%>%
   filter(Career_HR>=400)
 
+head(df)
+
 ```
 
+### As you can see we have playerID from our last query but we do not have names to identify our players.
+### so lets join our dataframe with Master table and get the player names.
 
 
-```{r}
-
-
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 
 HR_VS_SO<-inner_join(df,Master,by=c("playerID"))%>%
   select(nameFirst,nameLast,Career_HR, Career_SO)
 
+
+head(HR_VS_SO)
+
+
+```
+
+
+### lets combine the first and last names into Name column.
+
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+
 HR_VS_SO$name<-paste(HR_VS_SO$nameFirst,HR_VS_SO$nameLast)
 
+head(HR_VS_SO)
+
+
+```
+
+
+### Now that we have all the needed data lets plot a graph.
+
+
+```{r echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
 
 IntercGraph<-ggplot()+
   geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR))+

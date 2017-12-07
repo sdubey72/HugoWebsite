@@ -17,7 +17,7 @@
       <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>/post/graphs-in-r/</guid>
-      <description>library(dplyr)## ## Attaching package: &amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, unionlibrary(ggplot2)library(Lahman)library(ggiraph)df&amp;lt;-Batting%&amp;gt;%group_by(playerID)%&amp;gt;%summarise(Career_HR = sum(HR), Career_SO=sum(SO))%&amp;gt;%filter(Career_HR&amp;gt;=400)HR_VS_SO&amp;lt;-inner_join(df,Master,by=c(&amp;quot;playerID&amp;quot;))%&amp;gt;%select(nameFirst,nameLast,Career_HR, Career_SO)HR_VS_SO$name&amp;lt;-paste(HR_VS_SO$nameFirst,HR_VS_SO$nameLast)IntercGraph&amp;lt;-ggplot()+geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR))+ggtitle(&amp;quot;Career Homeruns vs. Strikeouts for Great Hitters&amp;quot;)+xlab(&amp;quot;Career Strikeout&amp;quot;)+ylab(&amp;quot;Career Homerun&amp;quot;)ggiraph(code =print(IntercGraph),hover_css = &amp;quot;fill:red;stroke:black&amp;quot;){&#34;</description>
+      <description>Creating GraphsLet’s start by importing the libraries we will need to plot a graph.We would need dplyr to do the data manipulationsLahman to get the data about all the baseball players for our plotsAnd lastly, ggplot2 and ggiraph are needed for the graphs.library(dplyr)library(ggplot2)library(Lahman)library(ggiraph)Now that we have our libraries/packages, Let’s do some data maipulation using dplyrWe will search for all the players who have homeruns more than 400 in their careers.</description>
     </item>
     
   </channel>
