@@ -6,34 +6,18 @@
     <description>Recent content in Posts on Learining R world</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 27 Nov 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      <title>Graphs in R</title>
+      <link>/post/graphs-in-r/</link>
+      <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.rstudio.com.
-You can embed an R code chunk like this:
-summary(cars)## speed dist ## Min. : 4.0 Min. : 2.00 ## 1st Qu.:12.0 1st Qu.: 26.00 ## Median :15.0 Median : 36.00 ## Mean :15.4 Mean : 42.98 ## 3rd Qu.</description>
-    </item>
-    
-    <item>
-      <title>Getting Started with Hugo</title>
-      <link>/post/hugoisforlovers/</link>
-      <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
-      
-      <guid>/post/hugoisforlovers/</guid>
-      <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
-Save it somewhere specific as we will be using it in the next step.
-More complete instructions are available at installing hugo
-Step 2. Build the Docs Hugo has its own example site which happens to also be the documentation site you are reading right now.
-Follow the following steps:
- Clone the hugo repository Go into the repo Run hugo in server mode and build the docs Open your browser to http://localhost:1313  Corresponding pseudo commands:</description>
+      <guid>/post/graphs-in-r/</guid>
+      <description>library(dplyr)## ## Attaching package: &amp;#39;dplyr&amp;#39;## The following objects are masked from &amp;#39;package:stats&amp;#39;:## ## filter, lag## The following objects are masked from &amp;#39;package:base&amp;#39;:## ## intersect, setdiff, setequal, unionlibrary(ggplot2)library(Lahman)library(ggiraph)df&amp;lt;-Batting%&amp;gt;%group_by(playerID)%&amp;gt;%summarise(Career_HR = sum(HR), Career_SO=sum(SO))%&amp;gt;%filter(Career_HR&amp;gt;=400)HR_VS_SO&amp;lt;-inner_join(df,Master,by=c(&amp;quot;playerID&amp;quot;))%&amp;gt;%select(nameFirst,nameLast,Career_HR, Career_SO)HR_VS_SO$name&amp;lt;-paste(HR_VS_SO$nameFirst,HR_VS_SO$nameLast)IntercGraph&amp;lt;-ggplot()+geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR))+ggtitle(&amp;quot;Career Homeruns vs. Strikeouts for Great Hitters&amp;quot;)+xlab(&amp;quot;Career Strikeout&amp;quot;)+ylab(&amp;quot;Career Homerun&amp;quot;)ggiraph(code =print(IntercGraph),hover_css = &amp;quot;fill:red;stroke:black&amp;quot;){&#34;</description>
     </item>
     
   </channel>

@@ -1,0 +1,43 @@
+---
+title: Graphs in R
+author: ''
+date: '2017-11-27'
+slug: graphs-in-r
+categories:
+  - dplyr
+  - ggplot2
+tags: []
+---
+
+
+```{r,warning=FALSE,}
+library(dplyr)
+library(ggplot2)
+library(Lahman)
+library(ggiraph)
+
+```
+
+```{r}
+
+df<-Batting%>%
+  group_by(playerID)%>%
+  summarise(Career_HR = sum(HR), Career_SO=sum(SO))%>%
+  filter(Career_HR>=400)
+
+
+HR_VS_SO<-inner_join(df,Master,by=c("playerID"))%>%
+  select(nameFirst,nameLast,Career_HR, Career_SO)
+
+HR_VS_SO$name<-paste(HR_VS_SO$nameFirst,HR_VS_SO$nameLast)
+
+
+IntercGraph<-ggplot()+
+  geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR))+
+  ggtitle("Career Homeruns vs. Strikeouts for Great Hitters")+
+  xlab("Career Strikeout")+
+  ylab("Career Homerun")
+
+ggiraph(code =print(IntercGraph),hover_css = "fill:red;stroke:black")
+
+```
