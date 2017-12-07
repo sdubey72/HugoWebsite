@@ -18,12 +18,19 @@ library(ggiraph)
 
 ```
 
-```{r}
 
+```{r}
 df<-Batting%>%
   group_by(playerID)%>%
   summarise(Career_HR = sum(HR), Career_SO=sum(SO))%>%
   filter(Career_HR>=400)
+
+```
+
+
+
+```{r}
+
 
 
 HR_VS_SO<-inner_join(df,Master,by=c("playerID"))%>%
