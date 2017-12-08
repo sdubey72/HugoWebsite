@@ -9,15 +9,13 @@ categories:
 tags: []
 ---
 
-# Creating Graphs
+## *Let's start by importing the libraries we will need to plot a graph.*
 
-### Let's start by importing the libraries we will need to plot a graph.
+## *We would need dplyr to do the data manipulations *
 
-### We would need dplyr to do the data manipulations 
+## *Lahman to get the data about all the baseball players for our plots*
 
-### Lahman to get the data about all the baseball players for our plots
-
-### And lastly, ggplot2 and ggiraph are needed for the graphs.
+## *And lastly, ggplot2 and ggiraph are needed for the graphs.*
 
 
 ```{r Importing Libraries into the environment, echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
@@ -29,11 +27,11 @@ library(ggiraph)
 ```
 
 
-### Now that we have our libraries/packages, Let's do some data maipulation using dplyr
+## *Now that we have our libraries/packages, Let's do some data maipulation using dplyr*
 
-### We will search for all the players who have homeruns more than 400 in their careers.
+## *We will search for all the players who have homeruns more than 400 in their careers.*
 
-### we will be using Batting table from Lahman package and grouping it by player_ids.
+## *we will be using Batting table from Lahman package and grouping it by player_ids.*
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -46,8 +44,8 @@ head(df)
 
 ```
 
-### As you can see we have playerID from our last query but we do not have names to identify our players.
-### so lets join our dataframe with Master table and get the player names.
+## *As you can see we have playerID from our last query but we do not have names to identify our players.*
+## *so lets join our dataframe with Master table and get the player names.*
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -62,7 +60,7 @@ head(HR_VS_SO)
 ```
 
 
-### lets combine the first and last names into Name column.
+## *lets combine the first and last names into Name column.*
 
 
 ```{r echo=TRUE, message=FALSE, warning=FALSE}
@@ -75,13 +73,14 @@ head(HR_VS_SO)
 ```
 
 
-### Now that we have all the needed data lets plot a graph.
+## *Now that we have all the needed data lets plot a graph of career Strikeouts vs career homeruns.*
 
+## *NOTE : the tooltip doesnt work in the posts but it should work when you execute the query on your system.*
 
 ```{r echo=TRUE, fig.align='center', message=FALSE, warning=FALSE}
 
 IntercGraph<-ggplot()+
-  geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR))+
+  geom_point(data = HR_VS_SO,aes(x=Career_SO, y=Career_HR,tooltip=name,data_id=nameLast))+
   ggtitle("Career Homeruns vs. Strikeouts for Great Hitters")+
   xlab("Career Strikeout")+
   ylab("Career Homerun")
@@ -89,3 +88,27 @@ IntercGraph<-ggplot()+
 ggiraph(code =print(IntercGraph),hover_css = "fill:red;stroke:black")
 
 ```
+
+## *Now lets try creating Bar graphs using the same package*
+
+
+```{r, message=FALSE, warning=FALSE}
+
+data1<-Teams%>%
+  filter(yearID==1980)%>%
+  select(teamID,HR)
+  
+
+
+```
+
+```{r, message=FALSE, warning=FALSE}
+
+ggplot()+
+  geom_bar(data = data1 , aes(x=teamID,y=HR),stat = "identity",color="red",fill="blue")+
+  coord_flip()
+
+
+```
+
+
