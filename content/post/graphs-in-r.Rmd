@@ -122,6 +122,8 @@ data2<-Teams%>%
 
 data2$name<-factor(data2$name,levels = data2$name) 
 
+head(data2)
+
 ```
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
@@ -132,11 +134,11 @@ ggplot()+
 ```
 
 
-# to make the graph interactive lets do some changes by adding "geom_bar_interactive".
+# To make the graph interactive lets do some changes by adding "geom_bar_interactive".
 
 
 
-```{r}
+```{r,message=FALSE, warning=FALSE,fig.align='center'}
 gph<-ggplot()+
   geom_bar_interactive(data=data2, aes(x=name, y=HR, tooltip=HR,data_id=name), stat ="identity", color="blue",fill="white")+
   coord_flip()+
@@ -147,6 +149,52 @@ gph<-ggplot()+
 ggiraph(code = print(gph),hover_css = "fill:red;stroke:black")
 ```
 
+## Lets do some histograms now and add titile to the graph using "ggtitle"
+
+```{r,message=FALSE, warning=FALSE,fig.align='center'}
+
+df2<-Master%>%
+  filter(!is.na(weight))%>%
+  select(weight)
+
+head(df2)
+```
+
+
+
+```{r,message=FALSE, warning=FALSE,fig.align='center'}
+ggplot()+
+  geom_histogram(data=df2,aes(x=weight),color="white",fill="blue")+
+  ggtitle("baseball players weights")
+
+```
+
+
+
+## Let's build some time series.
+## One thing to remomber is that x axis will always be time and y axis can be anything else.
+
+```{r,message=FALSE, warning=FALSE,fig.align='center'}
+df3<-Batting%>%
+  filter(playerID=='ruthba01')%>%
+  select(yearID,HR)
+head(df3)
+```
+
+
+## Let's plot the graph for the above result.
+## To change colors use data_id in the ggploty and hover_css in the ggiraph
+
+```{r,message=FALSE, warning=FALSE,fig.align='center'}
+
+gph<-ggplot()+
+  geom_line(data = df3, aes(x=yearID, y=HR))+
+  geom_point_interactive(data = df3, aes(x=yearID, y=HR, tooltip=HR,data_id=yearID))
+
+ggiraph(code = print(gph),hover_css = "fill:white;stroke:red")
+
+
+```
 
 
 
