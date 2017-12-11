@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Sweave on Learining R world</title>
+    <link>/categories/sweave/</link>
+    <description>Recent content in Sweave on Learining R world</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/sweave/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Creating an Article with Sweave</title>
+      <link>/post/creating-an-article-with-sweave/</link>
+      <pubDate>Mon, 11 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/creating-an-article-with-sweave/</guid>
+      <description>How to create an Article using SweaveTo start with Sweave, go to 1. Files 2. New Files 3. R Sweave
+And you will be presented with a new file(rnw) with the headers.
+To run the file click on “Compile PDF” and the article will be published in pdf format.
+Note : go to Tools - Global Options - SweaveMake sure the option “Weave RNW file using” has “kniter” selected and click apply.</description>
+    </item>
+    
+  </channel>
+</rss>

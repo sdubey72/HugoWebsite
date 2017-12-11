@@ -1,0 +1,28 @@
+---
+title: Creating an Article with Sweave
+author: Shraddha Dubey
+date: '2017-12-11'
+slug: creating-an-article-with-sweave
+categories:
+  - Sweave
+tags:
+  - dplyr
+---
+
+## How to create an Article using Sweave
+
+To start with Sweave, go to 
+1. Files
+2. New Files
+3. R Sweave
+
+And you will be presented with a new file(rnw) with the headers.
+
+To run the file click on "Compile PDF" and the article will be published in pdf format.
+
+## Note : go to Tools - Global Options - Sweave 
+ Make sure the option "Weave RNW file using " has "kniter" selected and click apply.
+
+https://github.com/sdubey72/Article-in-R/blob/master/CharlesDickens.Rnw
+
+https://github.com/sdubey72/Article-in-R/blob/master/CharlesDickens.pdf
