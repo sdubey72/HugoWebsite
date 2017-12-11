@@ -14,13 +14,13 @@ tags:
 ## *First we'll import libraries needed . *
 
 ```{r,warning=FALSE,message=FALSE}
-
+library(devtools)
 library(dplyr)
 # For data manipulation
 library(ggplot2)
 # For our graphs
 library(Lahman)
-
+library(knitr)
 library(flexdashboard)
 
 
@@ -30,11 +30,11 @@ library(flexdashboard)
 
 ## File - New File - R Markdown - From Template -Flexdashboard
 
-![starting with flexdashboard](./image1.PNG)
+![starting with flexdashboard](./public/post/Capture1.PNG)
 
 ## *You will be presented with a file similar to this*
 
-![starting with flexdashboard](./image2.PNG)
+![starting with flexdashboard](./public/post/Capture2.PNG)
 
 ## *And you can insert your code chunks as you wish.*
 

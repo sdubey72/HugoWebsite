@@ -171,13 +171,8 @@ ggplot()+
 
 
 
-<<<<<<< HEAD
-## Let's build some time series.
-## One thing to remomber is that x axis will always be time and y axis can be anything else.
-=======
 ## *Let's build some time series.*
 ## *One thing to remomber is that x axis will always be time and y axis can be anything else.*
->>>>>>> 43ea82cbd307f0c412e44a5713ef290b5995e11f
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
 df3<-Batting%>%
@@ -187,13 +182,8 @@ head(df3)
 ```
 
 
-<<<<<<< HEAD
-## Let's plot the graph for the above result.
-## To change colors use data_id in the ggploty and hover_css in the ggiraph
-=======
 ## *Let's plot the graph for the above result.*
 ## *To change colors use data_id in the ggploty and hover_css in the ggiraph*
->>>>>>> 43ea82cbd307f0c412e44a5713ef290b5995e11f
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
 
