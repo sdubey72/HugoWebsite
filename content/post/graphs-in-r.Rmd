@@ -102,7 +102,7 @@ data1<-Teams%>%
 
 ```
 
-## identity tells ggplot to display the data frame in the same order and that the sorting has been done 
+## identity *tells ggplot to display the data frame in the same order and that the sorting has been done *
 
 ```{r, message=FALSE, warning=FALSE,fig.align='center'}
 
@@ -134,7 +134,7 @@ ggplot()+
 ```
 
 
-# To make the graph interactive lets do some changes by adding "geom_bar_interactive".
+# *To make the graph interactive lets do some changes by adding "geom_bar_interactive".*
 
 
 
@@ -149,7 +149,7 @@ gph<-ggplot()+
 ggiraph(code = print(gph),hover_css = "fill:red;stroke:black")
 ```
 
-## Lets do some histograms now and add titile to the graph using "ggtitle"
+## *Lets do some histograms now and add titile to the graph using "ggtitle"*
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
 
@@ -171,8 +171,8 @@ ggplot()+
 
 
 
-## Let's build some time series.
-## One thing to remomber is that x axis will always be time and y axis can be anything else.
+## *Let's build some time series.*
+## *One thing to remomber is that x axis will always be time and y axis can be anything else.*
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
 df3<-Batting%>%
@@ -182,8 +182,8 @@ head(df3)
 ```
 
 
-## Let's plot the graph for the above result.
-## To change colors use data_id in the ggploty and hover_css in the ggiraph
+## *Let's plot the graph for the above result.*
+## *To change colors use data_id in the ggploty and hover_css in the ggiraph*
 
 ```{r,message=FALSE, warning=FALSE,fig.align='center'}
 
