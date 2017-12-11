@@ -1,6 +1,6 @@
 ---
 title: Graphs in R
-author: ''
+author: 'Shraddha Dubey'
 date: '2017-11-27'
 slug: graphs-in-r
 categories:

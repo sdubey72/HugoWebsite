@@ -30,11 +30,13 @@ library(flexdashboard)
 
 ## File - New File - R Markdown - From Template -Flexdashboard
 
-![starting with flexdashboard](./public/post/Capture1.PNG)
+<img src="Capture1.PNG"/>
+
+
 
 ## *You will be presented with a file similar to this*
 
-![starting with flexdashboard](./public/post/Capture2.PNG)
+<img src="Capture2.PNG"/>
 
 ## *And you can insert your code chunks as you wish.*
 
