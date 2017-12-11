@@ -1,0 +1,78 @@
+---
+title: flexdashboard
+author: Shraddha Dubey
+date: '2017-12-11'
+slug: flexdashboard
+categories:
+  - dplyr
+tags:
+  - flexdashboard
+---
+
+# How to create a flexdashboar using Rstudio
+
+## *First we'll import libraries needed . *
+
+```{r,warning=FALSE,message=FALSE}
+
+library(dplyr)
+# For data manipulation
+library(ggplot2)
+# For our graphs
+library(Lahman)
+
+library(flexdashboard)
+
+
+```
+
+## In the menu bar click,
+
+## File - New File - R Markdown - From Template -Flexdashboard
+
+![starting with flexdashboard](./image1.PNG)
+
+## *You will be presented with a file similar to this*
+
+![starting with flexdashboard](./image2.PNG)
+
+## *And you can insert your code chunks as you wish.*
+
+## *Let's get started with text mining.*
+
+## *First we will read a csv file and store it into a data frame. Use the following sample to read csv files.*
+
+```{r}
+
+result<-Batting%>%
+        filter(playerID=='ruthba01')%>%
+        select(yearID,SO,HR)
+
+
+
+```
+
+## Now add the following code blocks into your code sections.
+
+```{r}
+ggplot()+
+  geom_histogram(data = result,aes(x=HR),bins =5,color='blue',fill='brown')
+
+
+```
+
+```{r}
+ggplot()+
+  geom_point(data = result,aes(x=SO,y=HR))+
+  xlab("Strikeout")+
+  ylab('homruns')
+
+```
+
+```{r}
+ggplot()+
+  geom_point(data = result,aes(x=yearID,y=HR))+
+  geom_line(data = result,aes(x=yearID,y=HR))+
+  xlab('YEAR')+
+  ylab("homeruns")
+```

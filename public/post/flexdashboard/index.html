@@ -5,22 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>
-Category | dplyr
-
-</title>
+  <title>Learining R world</title>
 
   
   
-  <meta name="author" content="Shraddha" />
-  <meta name="description" content="Welcome to my blog. I am Data Science student at Mercyhurst university. This blog started as an effort to document the class room teachings and hope it helps you too !" />
+  <meta name="author" content="Shraddha Dubey" />
+  <meta name="description" content="How to create a flexdashboar using RstudioFirst we’ll import libraries needed . library(dplyr)# For data manipulationlibrary(ggplot2)# For our graphslibrary(Lahman)library(flexdashboard)In the menu bar click,File - New File - R Markdown - From Template -Flexdashboardstarting with flexdashboard
+You will be presented with a file similar to thisstarting with flexdashboard
+And you can insert your code chunks as you wish." />
 
 
 
 <meta name="generator" content="Hugo 0.31.1" />
 
 
-<link rel="canonical" href="/categories/dplyr/" />
+<link rel="canonical" href="/post/flexdashboard/" />
 <link rel="alternative" href="/index.xml" title="Learining R world" type="application/atom+xml" />
 
 <link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet" >
@@ -33,27 +32,102 @@ Category | dplyr
     <div class="flipper">
       <section class="front">
         
-
 <nav class="ui top secondary menu">
   <div class="item">
     <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
   </div>
   <div class="item">
-    <a href="/"><i class="inverted big home icon" title="Home"></i></a>
-  </div>
-  <div class="item">
-    
-    <i class="disabled inverted big arrow circle outline left icon" title="Previous page"></i>
-    
-  </div>
-  <div class="item">
-    
-    <i class="disabled inverted big arrow circle outline right icon" title="Next page"></i>
-    
+    <a href="/">
+      <i class="inverted big home icon" title="Home"></i>
+    </a>
   </div>
 </nav>
  
 <div class="ui centered grid">
+  <div class="fifteen wide mobile eleven wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          flexdashboard
+          <div class="sub header">@ Shraddha Dubey · Dec 11, 2017 · 1 min read · Update at Dec 11, 2017</div>
+        </h1>
+      </header>
+      <article style="margin-top: 2rem; font-size: 1.4rem;"><div id="how-to-create-a-flexdashboar-using-rstudio" class="section level1">
+<h1>How to create a flexdashboar using Rstudio</h1>
+<div id="first-well-import-libraries-needed-." class="section level2">
+<h2><em>First we’ll import libraries needed . </em></h2>
+<pre class="r"><code>library(dplyr)
+# For data manipulation
+library(ggplot2)
+# For our graphs
+library(Lahman)
+
+library(flexdashboard)</code></pre>
+</div>
+<div id="in-the-menu-bar-click" class="section level2">
+<h2>In the menu bar click,</h2>
+</div>
+<div id="file---new-file---r-markdown---from-template--flexdashboard" class="section level2">
+<h2>File - New File - R Markdown - From Template -Flexdashboard</h2>
+<div class="figure">
+<img src="./image1.PNG" alt="starting with flexdashboard" />
+<p class="caption">starting with flexdashboard</p>
+</div>
+</div>
+<div id="you-will-be-presented-with-a-file-similar-to-this" class="section level2">
+<h2><em>You will be presented with a file similar to this</em></h2>
+<div class="figure">
+<img src="./image2.PNG" alt="starting with flexdashboard" />
+<p class="caption">starting with flexdashboard</p>
+</div>
+</div>
+<div id="and-you-can-insert-your-code-chunks-as-you-wish." class="section level2">
+<h2><em>And you can insert your code chunks as you wish.</em></h2>
+</div>
+<div id="lets-get-started-with-text-mining." class="section level2">
+<h2><em>Let’s get started with text mining.</em></h2>
+</div>
+<div id="first-we-will-read-a-csv-file-and-store-it-into-a-data-frame.-use-the-following-sample-to-read-csv-files." class="section level2">
+<h2><em>First we will read a csv file and store it into a data frame. Use the following sample to read csv files.</em></h2>
+<pre class="r"><code>result&lt;-Batting%&gt;%
+        filter(playerID==&#39;ruthba01&#39;)%&gt;%
+        select(yearID,SO,HR)</code></pre>
+</div>
+<div id="now-add-the-following-code-blocks-into-your-code-sections." class="section level2">
+<h2>Now add the following code blocks into your code sections.</h2>
+<pre class="r"><code>ggplot()+
+  geom_histogram(data = result,aes(x=HR),bins =5,color=&#39;blue&#39;,fill=&#39;brown&#39;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot()+
+  geom_point(data = result,aes(x=SO,y=HR))+
+  xlab(&quot;Strikeout&quot;)+
+  ylab(&#39;homruns&#39;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot()+
+  geom_point(data = result,aes(x=yearID,y=HR))+
+  geom_line(data = result,aes(x=yearID,y=HR))+
+  xlab(&#39;YEAR&#39;)+
+  ylab(&quot;homeruns&quot;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/flexdashboard" title="flexdashboard">flexdashboard</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
   <div class="fifteen wide mobile four wide tablet four wide computer column">
 
     <section class="ui top attached center aligned inverted segment">
@@ -143,87 +217,6 @@ Category | dplyr
 
 
 
-
-  </div>
-  <div class="fifteen wide mobile eleven wide tablet eleven wide computer column post-list">
-
-    <div class="ui two stackable cards">
-      
-      
-
-        <article class="black card">
-  <div class="image">
-    <div class="ui dimmer">
-      <div class="content">
-        <div class="center">
-          <a href="/post/wordcloud/">
-            <h2 class="ui header" style="color: white;">WordCloud</h2>
-          </a>
-          <p style="padding: 5px;">To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.
-Install and bring the following libraries to your workspace.
-gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered</p>
-          <p>@ Shraddha Dubey</p>
-          <div class="ui top right attached black label">5 min read</div>
-          <div class="ui bottom left attached black label">Dec 11, 2017</div>
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default1.jpg" alt="WordCloud">
-    
-  </div>
-</article>
-
-      
-
-        <article class="black card">
-  <div class="image">
-    <div class="ui dimmer">
-      <div class="content">
-        <div class="center">
-          <a href="/post/flexdashboard/">
-            <h2 class="ui header" style="color: white;">flexdashboard</h2>
-          </a>
-          <p style="padding: 5px;">How to create a flexdashboar using RstudioFirst we’ll import libraries needed . library(dplyr)# For data manipulationlibrary(ggplot2)# For our graphslibrary(Lahman)library(flexdashboard)In the menu bar click,File - New File - R Markdown - From Template -Flexdashboardstarting with flexdashboard
-You will be presented with a file similar to thisstarting with flexdashboard
-And you can insert your code chunks as you wish.</p>
-          <p>@ Shraddha Dubey</p>
-          <div class="ui top right attached black label">1 min read</div>
-          <div class="ui bottom left attached black label">Dec 11, 2017</div>
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default1.jpg" alt="flexdashboard">
-    
-  </div>
-</article>
-
-      
-
-        <article class="black card">
-  <div class="image">
-    <div class="ui dimmer">
-      <div class="content">
-        <div class="center">
-          <a href="/post/graphs-in-r/">
-            <h2 class="ui header" style="color: white;">Graphs in R</h2>
-          </a>
-          <p style="padding: 5px;">Let’s start by importing the libraries we will need to plot a graph.We would need dplyr to do the data manipulations Lahman to get the data about all the baseball players for our plotsAnd lastly, ggplot2 and ggiraph are needed for the graphs.library(dplyr)library(ggplot2)library(Lahman)library(ggiraph)Now that we have our libraries/packages, Let’s do some data maipulation using dplyrWe will search for all the players who have homeruns more than 400 in their careers.</p>
-          <p>@ </p>
-          <div class="ui top right attached black label">6 min read</div>
-          <div class="ui bottom left attached black label">Nov 27, 2017</div>
-        </div>
-      </div>
-    </div>
-    
-    <img src="/img/default1.jpg" alt="Graphs in R">
-    
-  </div>
-</article>
-
-      
-    </div>
 
   </div>
 </div>

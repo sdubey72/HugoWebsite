@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Flexdashboard on Learining R world</title>
+    <link>/tags/flexdashboard/</link>
+    <description>Recent content in Flexdashboard on Learining R world</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 11 Dec 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/flexdashboard/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>flexdashboard</title>
+      <link>/post/flexdashboard/</link>
+      <pubDate>Mon, 11 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/flexdashboard/</guid>
+      <description>How to create a flexdashboar using RstudioFirst we’ll import libraries needed . library(dplyr)# For data manipulationlibrary(ggplot2)# For our graphslibrary(Lahman)library(flexdashboard)In the menu bar click,File - New File - R Markdown - From Template -Flexdashboardstarting with flexdashboard
+You will be presented with a file similar to thisstarting with flexdashboard
+And you can insert your code chunks as you wish.</description>
+    </item>
+    
+  </channel>
+</rss>

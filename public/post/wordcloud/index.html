@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Learining R world</title>
+
+  
+  
+  <meta name="author" content="Shraddha Dubey" />
+  <meta name="description" content="To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.
+Install and bring the following libraries to your workspace.
+gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered" />
+
+
+
+<meta name="generator" content="Hugo 0.31.1" />
+
+
+<link rel="canonical" href="/post/wordcloud/" />
+<link rel="alternative" href="/index.xml" title="Learining R world" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.css" rel="stylesheet" >
+<link rel="stylesheet" href="/css/site.css">
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile eleven wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          WordCloud
+          <div class="sub header">@ Shraddha Dubey · Dec 11, 2017 · 5 min read · Update at Dec 11, 2017</div>
+        </h1>
+      </header>
+      <article style="margin-top: 2rem; font-size: 1.4rem;"><p>To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.</p>
+<p>Install and bring the following libraries to your workspace.</p>
+<div id="gutenbergr-the-gutenbergr-package-helps-you-download-and-process-public-domain-works-from-the-project-gutenberg-collection." class="section level4">
+<h4>gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.</h4>
+<p>Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered</p>
+<p>gutenberg_download() :downloads one or more works from Project Gutenberg by ID e.g., gutenberg_download(84) downloads the text of Frankenstein.</p>
+<p>gutenberg_metadata : contains information about each work, pairing Gutenberg ID with title, author, language, etc</p>
+<p>gutenberg_authors : contains information about each author, such as aliases and birth/death year</p>
+<p>gutenberg_subjects: contains pairings of works with Library of Congress subjects and topics</p>
+</div>
+<div id="dplyr-the-dplyr-package-helps-with-data-manipulation-challenges." class="section level4">
+<h4>dplyr :The dplyr package helps with data manipulation challenges.</h4>
+<p>It provides simple “verbs”, functions that correspond to the most common data manipulation tasks.It uses efficient backends, so we spend less time waiting for the computer.</p>
+<p>Dplyr has following function for basic data manipulation:</p>
+<p>filter() to select cases based on their values.</p>
+<p>arrange() to reorder the cases.</p>
+<p>select() and rename() to select variables based on their names.</p>
+<p>mutate() and transmute() to add new variables that are functions of existing variables.</p>
+<p>summarise() to condense multiple values to a single value.</p>
+<p>sample_n() and sample_frac() to take random samples.</p>
+</div>
+<div id="tidytext-its-used-for-text-mining-and-sentiment-analysis-along-with-other-tools-like-dplye-and-ggplot2" class="section level4">
+<h4>tidytext : Its used for Text mining and sentiment analysis along with other tools like dplye and ggplot2</h4>
+</div>
+<div id="wordcloud-a-wordcloud-is-handy-tool-to-highlight-the-most-commonly-cited-words-in-a-text-using-a-quick-visualization." class="section level4">
+<h4>wordcloud : A wordcloud is handy tool to highlight the most commonly cited words in a text using a quick visualization.</h4>
+<pre class="r"><code># download all the below mentioned packages first 
+#using the following command 
+#install.packages(&quot;package_name&quot;)
+# install.packages(&quot;gutenbergr&quot;)
+library(gutenbergr)
+# install.packages(&quot;dplyr&quot;)
+library(dplyr)
+# install.packages(&quot;knitr&quot;)
+library(knitr)
+# install.packages(&quot;tidytext&quot;)
+library(tidytext)
+# install.packages(&quot;wordcloud&quot;)
+library(wordcloud)
+library(wordcloud2)
+# install.packages(&quot;ggplot2&quot;)
+library(ggplot2)</code></pre>
+</div>
+<div id="download-book" class="section level4">
+<h4>Download book</h4>
+<p>The first step towards making a wordcloud is getting text data. We are downloading ‘A Tale of Two Cities’ from gutenberg_works</p>
+<pre class="r"><code>gutenberg_works(title==&#39;A Tale of Two Cities&#39;)</code></pre>
+<pre><code>## # A tibble: 1 x 8
+##   gutenberg_id                title           author gutenberg_author_id
+##          &lt;int&gt;                &lt;chr&gt;            &lt;chr&gt;               &lt;int&gt;
+## 1           98 A Tale of Two Cities Dickens, Charles                  37
+## # ... with 4 more variables: language &lt;chr&gt;, gutenberg_bookshelf &lt;chr&gt;,
+## #   rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
+<pre class="r"><code># we can used the gutenberg_id to download
+# the book into a dataframe
+
+two_cities&lt;-gutenberg_download(98)</code></pre>
+<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
+<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##    gutenberg_id                             text
+##           &lt;int&gt;                            &lt;chr&gt;
+##  1           98             A TALE OF TWO CITIES
+##  2           98                                 
+##  3           98 A STORY OF THE FRENCH REVOLUTION
+##  4           98                                 
+##  5           98               By Charles Dickens
+##  6           98                                 
+##  7           98                                 
+##  8           98                         CONTENTS
+##  9           98                                 
+## 10           98</code></pre>
+</div>
+<div id="unnest-the-words" class="section level4">
+<h4>Unnest the words</h4>
+<p>As you can notice in the above section, the text column holds each sentence of the novel.</p>
+<p>Lets break it down into words using dplyr function unnest_tokens().</p>
+<p>unnest_tokens() takes two parameters, first is the name of the resultant column and second is the name of source column which we want to unnest.</p>
+<pre class="r"><code># break the lines into words and store into dataframe as two_cities
+two_cities&lt;-two_cities%&gt;%
+  unnest_tokens(word,text)
+
+two_cities[1:20,]</code></pre>
+<pre><code>## # A tibble: 20 x 2
+##    gutenberg_id       word
+##           &lt;int&gt;      &lt;chr&gt;
+##  1           98          a
+##  2           98       tale
+##  3           98         of
+##  4           98        two
+##  5           98     cities
+##  6           98          a
+##  7           98      story
+##  8           98         of
+##  9           98        the
+## 10           98     french
+## 11           98 revolution
+## 12           98         by
+## 13           98    charles
+## 14           98    dickens
+## 15           98   contents
+## 16           98       book
+## 17           98        the
+## 18           98      first
+## 19           98   recalled
+## 20           98         to</code></pre>
+</div>
+<div id="sentiment-analysis" class="section level4">
+<h4>Sentiment Analysis</h4>
+<p>Now that we have all the words from the novel, lets evaluate the sentiments of those words.</p>
+<p>For that we can import a sentiment lexicon ‘nrc’ from tidytext package.</p>
+<pre class="r"><code>two_cities$gutenberg_id&lt;-NULL
+
+# store all the sentiments into sent dataframe
+sent&lt;-get_sentiments(&#39;nrc&#39;)
+
+# inner join of sent dataframe with two_cities 
+# will give us the respective sentiments for each word
+
+two_cities&lt;-inner_join(two_cities,sent)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre class="r"><code>two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##           word    sentiment
+##          &lt;chr&gt;        &lt;chr&gt;
+##  1        tale     positive
+##  2  revolution        anger
+##  3  revolution anticipation
+##  4  revolution         fear
+##  5  revolution     negative
+##  6  revolution     positive
+##  7  revolution      sadness
+##  8  revolution     surprise
+##  9        mail anticipation
+## 10 preparation anticipation</code></pre>
+</div>
+<div id="plotting" class="section level4">
+<h4>Plotting</h4>
+<p>We have all the sentiments and words so lets plot the graph for the sentiments used in the novel using ggplot2.</p>
+<pre class="r"><code># group the words by the sentiments
+
+two_cities&lt;-two_cities%&gt;%
+  group_by(word)%&gt;%
+  summarize(freq=n(),sentiment=first(sentiment))
+two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##           word  freq sentiment
+##          &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1     abandon     3      fear
+##  2   abandoned    40     anger
+##  3 abandonment     5     anger
+##  4     ability     2  positive
+##  5      abject     2   disgust
+##  6   abolition     1  negative
+##  7  abominable     6   disgust
+##  8      abrupt     3  surprise
+##  9     absence    24      fear
+## 10      absent    10  negative</code></pre>
+<pre class="r"><code># plotting graph
+ggplot()+
+  geom_bar(data=two_cities,aes(x=sentiment,y=freq)
+           ,stat = &#39;identity&#39;,fill=&#39;red&#39;)</code></pre>
+<p><img src="/post/2017-12-11-wordcloud_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="wordcloud" class="section level4">
+<h4>wordcloud</h4>
+<pre class="r"><code>wordcloud(two_cities$word,two_cities$freq,min.freq =50,
+          colors = brewer.pal(6,&#39;Dark2&#39;),vfont=c(&quot;script&quot;,&quot;bold&quot;))</code></pre>
+<p><img src="/post/2017-12-11-wordcloud_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      
+      <a class="ui label" href="/tags/wordcloud" title="wordcloud">wordcloud</a>
+      
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile four wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="img/defaultAvatar.jpg">
+    
+  </div>
+  <h3 class="ui header">Shraddha&#39;s blog<div class="sub header" style="color: white;">Exploring R Studio</div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+<section class="ui attached center aligned inverted segment dream-tags">
+  
+  <a class="ui label" href="/tags/flexdashboard" title="flexdashboard">flexdashboard</a>
+  
+  <a class="ui label" href="/tags/wordcloud" title="wordcloud">wordcloud</a>
+  
+</section>
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/dplyr" class="item" style="color: white;">dplyr</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/post/wordcloud/" class="item">WordCloud</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/post/flexdashboard/" class="item">flexdashboard</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/post/graphs-in-r/" class="item">Graphs in R</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/ggplot2" class="item" style="color: white;">ggplot2</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/post/wordcloud/" class="item">WordCloud</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/post/graphs-in-r/" class="item">Graphs in R</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow: scroll">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  <div class="item">
+    <a href="mailto:sdubey72@lakers.mercyhurst.edu">
+      <i class="inverted big mail icon" title="email"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://github.com/https://github.com/sdubey72" target="_blank">
+      <i class="inverted big github icon" title="github"></i>
+    </a>
+  </div>
+  
+  
+  <div class="item">
+    <a href="https://www.linkedin.com/in/https://www.linkedin.com/in/shraddha-dubey-8a8016b7/" target="_blank">
+      <i class="inverted big linkedin icon" title="linkedin"></i>
+    </a>
+  </div>
+  
+  
+  
+</nav>
+
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments about">
+      <header class="ui inverted segment">
+        <h2 class="ui header">About me</h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+          <p>Sharddha Dubey</p>
+        
+          <p>Welcome to my blog. I am Data Science student at Mercyhurst university.</p>
+        
+          <p>This blog started as an effort to document the class room teachings and hope it helps you too !</p>
+        
+      </article>
+
+      
+
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/semantic-ui/2.2.13/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+</body>
+
+</html>

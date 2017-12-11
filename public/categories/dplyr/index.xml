@@ -6,10 +6,32 @@
     <description>Recent content in Dplyr on Learining R world</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 27 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 11 Dec 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/dplyr/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>WordCloud</title>
+      <link>/post/wordcloud/</link>
+      <pubDate>Mon, 11 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/wordcloud/</guid>
+      <description>To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.
+Install and bring the following libraries to your workspace.
+gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered</description>
+    </item>
+    
+    <item>
+      <title>flexdashboard</title>
+      <link>/post/flexdashboard/</link>
+      <pubDate>Mon, 11 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/post/flexdashboard/</guid>
+      <description>How to create a flexdashboar using RstudioFirst we’ll import libraries needed . library(dplyr)# For data manipulationlibrary(ggplot2)# For our graphslibrary(Lahman)library(flexdashboard)In the menu bar click,File - New File - R Markdown - From Template -Flexdashboardstarting with flexdashboard
+You will be presented with a file similar to thisstarting with flexdashboard
+And you can insert your code chunks as you wish.</description>
+    </item>
     
     <item>
       <title>Graphs in R</title>

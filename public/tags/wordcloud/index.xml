@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ggplot2 on Learining R world</title>
-    <link>/categories/ggplot2/</link>
-    <description>Recent content in Ggplot2 on Learining R world</description>
+    <title>Wordcloud on Learining R world</title>
+    <link>/tags/wordcloud/</link>
+    <description>Recent content in Wordcloud on Learining R world</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Mon, 11 Dec 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/ggplot2/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/wordcloud/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -20,15 +20,6 @@
       <description>To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.
 Install and bring the following libraries to your workspace.
 gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered</description>
-    </item>
-    
-    <item>
-      <title>Graphs in R</title>
-      <link>/post/graphs-in-r/</link>
-      <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
-      
-      <guid>/post/graphs-in-r/</guid>
-      <description>Let’s start by importing the libraries we will need to plot a graph.We would need dplyr to do the data manipulations Lahman to get the data about all the baseball players for our plotsAnd lastly, ggplot2 and ggiraph are needed for the graphs.library(dplyr)library(ggplot2)library(Lahman)library(ggiraph)Now that we have our libraries/packages, Let’s do some data maipulation using dplyrWe will search for all the players who have homeruns more than 400 in their careers.</description>
     </item>
     
   </channel>

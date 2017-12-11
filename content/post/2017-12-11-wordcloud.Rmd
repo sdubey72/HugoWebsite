@@ -1,0 +1,160 @@
+---
+title: WordCloud
+author: Shraddha Dubey
+date: '2017-12-11'
+slug: wordcloud
+categories:
+  - dplyr
+  - ggplot2
+tags:
+  - wordcloud
+---
+
+
+To start working with Wordcloud and we need some words to create a wordcloud. 
+I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.
+
+Install and bring the following libraries to your workspace.
+
+
+#### gutenbergr :  The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.
+
+Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered
+
+gutenberg_download() :downloads one or more works from Project Gutenberg by ID  e.g., gutenberg_download(84) downloads the text of Frankenstein.
+
+gutenberg_metadata :  contains information about each work, pairing Gutenberg ID with title, author, language, etc
+
+gutenberg_authors : contains information about each author, such as aliases and birth/death year
+
+gutenberg_subjects: contains pairings of works with Library of Congress subjects and topics
+
+
+
+#### dplyr :The dplyr package helps with data manipulation challenges.
+
+It provides simple "verbs", functions that correspond to the most common data manipulation tasks.It uses efficient backends, so we spend less time waiting for the computer.
+
+Dplyr has following function for basic data manipulation:
+
+filter() to select cases based on their values.
+
+arrange() to reorder the cases.
+
+select() and rename() to select variables based on their names.
+
+mutate() and transmute() to add new variables that are functions of existing variables.
+
+summarise() to condense multiple values to a single value.
+
+sample_n() and sample_frac() to take random samples.
+
+
+
+#### tidytext : Its used for Text mining and sentiment analysis along with other tools like dplye and ggplot2
+
+
+
+#### wordcloud : A wordcloud is handy tool to highlight the most commonly cited words in a text using a quick visualization.
+
+```{r,warning=FALSE,message=FALSE}
+# download all the below mentioned packages first 
+#using the following command 
+#install.packages("package_name")
+# install.packages("gutenbergr")
+library(gutenbergr)
+# install.packages("dplyr")
+library(dplyr)
+# install.packages("knitr")
+library(knitr)
+# install.packages("tidytext")
+library(tidytext)
+# install.packages("wordcloud")
+library(wordcloud)
+library(wordcloud2)
+# install.packages("ggplot2")
+library(ggplot2)
+```
+
+
+#### Download book
+
+The first step towards making a wordcloud is getting text data. We are downloading 'A Tale of Two Cities' from gutenberg_works
+
+```{r}
+
+gutenberg_works(title=='A Tale of Two Cities')
+
+# we can used the gutenberg_id to download
+# the book into a dataframe
+
+two_cities<-gutenberg_download(98)
+two_cities[1:10,]
+
+```
+
+
+
+#### Unnest the words
+As you can notice in the above section, the text column holds each sentence of the novel. 
+
+Lets break it down into words using dplyr function unnest_tokens().
+
+unnest_tokens() takes two parameters, first is the name of the resultant column and second is the name of source column which we want to unnest.
+
+```{r}
+# break the lines into words and store into dataframe as two_cities
+two_cities<-two_cities%>%
+  unnest_tokens(word,text)
+
+two_cities[1:20,]
+```
+
+#### Sentiment Analysis
+
+Now that we have all the words from the novel, lets evaluate the sentiments of those words. 
+
+For that we can import a sentiment lexicon 'nrc' from tidytext package.
+
+```{r}
+two_cities$gutenberg_id<-NULL
+
+# store all the sentiments into sent dataframe
+sent<-get_sentiments('nrc')
+
+# inner join of sent dataframe with two_cities 
+# will give us the respective sentiments for each word
+
+two_cities<-inner_join(two_cities,sent)
+two_cities[1:10,]
+```
+
+#### Plotting
+
+We have all the sentiments and words so lets plot the graph for the sentiments used in the novel using ggplot2.
+
+```{r}
+# group the words by the sentiments
+
+two_cities<-two_cities%>%
+  group_by(word)%>%
+  summarize(freq=n(),sentiment=first(sentiment))
+two_cities[1:10,]
+
+# plotting graph
+ggplot()+
+  geom_bar(data=two_cities,aes(x=sentiment,y=freq)
+           ,stat = 'identity',fill='red')
+
+
+```
+
+
+#### wordcloud
+
+```{r}
+wordcloud(two_cities$word,two_cities$freq,min.freq =50,
+          colors = brewer.pal(6,'Dark2'),vfont=c("script","bold"))
+
+```
+

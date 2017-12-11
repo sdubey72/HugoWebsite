@@ -1,0 +1,185 @@
+---
+title: WordCloud
+author: Shraddha Dubey
+date: '2017-12-11'
+slug: wordcloud
+categories:
+  - dplyr
+  - ggplot2
+tags:
+  - wordcloud
+---
+
+
+
+<p>To start working with Wordcloud and we need some words to create a wordcloud. I picked up one of the novels of Charles Dickens - Tale of Two Cities. The book is available to download from gutenbergr package.</p>
+<p>Install and bring the following libraries to your workspace.</p>
+<div id="gutenbergr-the-gutenbergr-package-helps-you-download-and-process-public-domain-works-from-the-project-gutenberg-collection." class="section level4">
+<h4>gutenbergr : The gutenbergr package helps you download and process public domain works from the Project Gutenberg collection.</h4>
+<p>Metadata for all Project Gutenberg works as R datasets, so that they can be searched and filtered</p>
+<p>gutenberg_download() :downloads one or more works from Project Gutenberg by ID e.g., gutenberg_download(84) downloads the text of Frankenstein.</p>
+<p>gutenberg_metadata : contains information about each work, pairing Gutenberg ID with title, author, language, etc</p>
+<p>gutenberg_authors : contains information about each author, such as aliases and birth/death year</p>
+<p>gutenberg_subjects: contains pairings of works with Library of Congress subjects and topics</p>
+</div>
+<div id="dplyr-the-dplyr-package-helps-with-data-manipulation-challenges." class="section level4">
+<h4>dplyr :The dplyr package helps with data manipulation challenges.</h4>
+<p>It provides simple “verbs”, functions that correspond to the most common data manipulation tasks.It uses efficient backends, so we spend less time waiting for the computer.</p>
+<p>Dplyr has following function for basic data manipulation:</p>
+<p>filter() to select cases based on their values.</p>
+<p>arrange() to reorder the cases.</p>
+<p>select() and rename() to select variables based on their names.</p>
+<p>mutate() and transmute() to add new variables that are functions of existing variables.</p>
+<p>summarise() to condense multiple values to a single value.</p>
+<p>sample_n() and sample_frac() to take random samples.</p>
+</div>
+<div id="tidytext-its-used-for-text-mining-and-sentiment-analysis-along-with-other-tools-like-dplye-and-ggplot2" class="section level4">
+<h4>tidytext : Its used for Text mining and sentiment analysis along with other tools like dplye and ggplot2</h4>
+</div>
+<div id="wordcloud-a-wordcloud-is-handy-tool-to-highlight-the-most-commonly-cited-words-in-a-text-using-a-quick-visualization." class="section level4">
+<h4>wordcloud : A wordcloud is handy tool to highlight the most commonly cited words in a text using a quick visualization.</h4>
+<pre class="r"><code># download all the below mentioned packages first 
+#using the following command 
+#install.packages(&quot;package_name&quot;)
+# install.packages(&quot;gutenbergr&quot;)
+library(gutenbergr)
+# install.packages(&quot;dplyr&quot;)
+library(dplyr)
+# install.packages(&quot;knitr&quot;)
+library(knitr)
+# install.packages(&quot;tidytext&quot;)
+library(tidytext)
+# install.packages(&quot;wordcloud&quot;)
+library(wordcloud)
+library(wordcloud2)
+# install.packages(&quot;ggplot2&quot;)
+library(ggplot2)</code></pre>
+</div>
+<div id="download-book" class="section level4">
+<h4>Download book</h4>
+<p>The first step towards making a wordcloud is getting text data. We are downloading ‘A Tale of Two Cities’ from gutenberg_works</p>
+<pre class="r"><code>gutenberg_works(title==&#39;A Tale of Two Cities&#39;)</code></pre>
+<pre><code>## # A tibble: 1 x 8
+##   gutenberg_id                title           author gutenberg_author_id
+##          &lt;int&gt;                &lt;chr&gt;            &lt;chr&gt;               &lt;int&gt;
+## 1           98 A Tale of Two Cities Dickens, Charles                  37
+## # ... with 4 more variables: language &lt;chr&gt;, gutenberg_bookshelf &lt;chr&gt;,
+## #   rights &lt;chr&gt;, has_text &lt;lgl&gt;</code></pre>
+<pre class="r"><code># we can used the gutenberg_id to download
+# the book into a dataframe
+
+two_cities&lt;-gutenberg_download(98)</code></pre>
+<pre><code>## Determining mirror for Project Gutenberg from http://www.gutenberg.org/robot/harvest</code></pre>
+<pre><code>## Using mirror http://aleph.gutenberg.org</code></pre>
+<pre class="r"><code>two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##    gutenberg_id                             text
+##           &lt;int&gt;                            &lt;chr&gt;
+##  1           98             A TALE OF TWO CITIES
+##  2           98                                 
+##  3           98 A STORY OF THE FRENCH REVOLUTION
+##  4           98                                 
+##  5           98               By Charles Dickens
+##  6           98                                 
+##  7           98                                 
+##  8           98                         CONTENTS
+##  9           98                                 
+## 10           98</code></pre>
+</div>
+<div id="unnest-the-words" class="section level4">
+<h4>Unnest the words</h4>
+<p>As you can notice in the above section, the text column holds each sentence of the novel.</p>
+<p>Lets break it down into words using dplyr function unnest_tokens().</p>
+<p>unnest_tokens() takes two parameters, first is the name of the resultant column and second is the name of source column which we want to unnest.</p>
+<pre class="r"><code># break the lines into words and store into dataframe as two_cities
+two_cities&lt;-two_cities%&gt;%
+  unnest_tokens(word,text)
+
+two_cities[1:20,]</code></pre>
+<pre><code>## # A tibble: 20 x 2
+##    gutenberg_id       word
+##           &lt;int&gt;      &lt;chr&gt;
+##  1           98          a
+##  2           98       tale
+##  3           98         of
+##  4           98        two
+##  5           98     cities
+##  6           98          a
+##  7           98      story
+##  8           98         of
+##  9           98        the
+## 10           98     french
+## 11           98 revolution
+## 12           98         by
+## 13           98    charles
+## 14           98    dickens
+## 15           98   contents
+## 16           98       book
+## 17           98        the
+## 18           98      first
+## 19           98   recalled
+## 20           98         to</code></pre>
+</div>
+<div id="sentiment-analysis" class="section level4">
+<h4>Sentiment Analysis</h4>
+<p>Now that we have all the words from the novel, lets evaluate the sentiments of those words.</p>
+<p>For that we can import a sentiment lexicon ‘nrc’ from tidytext package.</p>
+<pre class="r"><code>two_cities$gutenberg_id&lt;-NULL
+
+# store all the sentiments into sent dataframe
+sent&lt;-get_sentiments(&#39;nrc&#39;)
+
+# inner join of sent dataframe with two_cities 
+# will give us the respective sentiments for each word
+
+two_cities&lt;-inner_join(two_cities,sent)</code></pre>
+<pre><code>## Joining, by = &quot;word&quot;</code></pre>
+<pre class="r"><code>two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 2
+##           word    sentiment
+##          &lt;chr&gt;        &lt;chr&gt;
+##  1        tale     positive
+##  2  revolution        anger
+##  3  revolution anticipation
+##  4  revolution         fear
+##  5  revolution     negative
+##  6  revolution     positive
+##  7  revolution      sadness
+##  8  revolution     surprise
+##  9        mail anticipation
+## 10 preparation anticipation</code></pre>
+</div>
+<div id="plotting" class="section level4">
+<h4>Plotting</h4>
+<p>We have all the sentiments and words so lets plot the graph for the sentiments used in the novel using ggplot2.</p>
+<pre class="r"><code># group the words by the sentiments
+
+two_cities&lt;-two_cities%&gt;%
+  group_by(word)%&gt;%
+  summarize(freq=n(),sentiment=first(sentiment))
+two_cities[1:10,]</code></pre>
+<pre><code>## # A tibble: 10 x 3
+##           word  freq sentiment
+##          &lt;chr&gt; &lt;int&gt;     &lt;chr&gt;
+##  1     abandon     3      fear
+##  2   abandoned    40     anger
+##  3 abandonment     5     anger
+##  4     ability     2  positive
+##  5      abject     2   disgust
+##  6   abolition     1  negative
+##  7  abominable     6   disgust
+##  8      abrupt     3  surprise
+##  9     absence    24      fear
+## 10      absent    10  negative</code></pre>
+<pre class="r"><code># plotting graph
+ggplot()+
+  geom_bar(data=two_cities,aes(x=sentiment,y=freq)
+           ,stat = &#39;identity&#39;,fill=&#39;red&#39;)</code></pre>
+<p><img src="/post/2017-12-11-wordcloud_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="wordcloud" class="section level4">
+<h4>wordcloud</h4>
+<pre class="r"><code>wordcloud(two_cities$word,two_cities$freq,min.freq =50,
+          colors = brewer.pal(6,&#39;Dark2&#39;),vfont=c(&quot;script&quot;,&quot;bold&quot;))</code></pre>
+<p><img src="/post/2017-12-11-wordcloud_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>

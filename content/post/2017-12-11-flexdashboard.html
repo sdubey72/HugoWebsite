@@ -1,0 +1,72 @@
+---
+title: flexdashboard
+author: Shraddha Dubey
+date: '2017-12-11'
+slug: flexdashboard
+categories:
+  - dplyr
+tags:
+  - flexdashboard
+---
+
+
+
+<div id="how-to-create-a-flexdashboar-using-rstudio" class="section level1">
+<h1>How to create a flexdashboar using Rstudio</h1>
+<div id="first-well-import-libraries-needed-." class="section level2">
+<h2><em>First we’ll import libraries needed . </em></h2>
+<pre class="r"><code>library(dplyr)
+# For data manipulation
+library(ggplot2)
+# For our graphs
+library(Lahman)
+
+library(flexdashboard)</code></pre>
+</div>
+<div id="in-the-menu-bar-click" class="section level2">
+<h2>In the menu bar click,</h2>
+</div>
+<div id="file---new-file---r-markdown---from-template--flexdashboard" class="section level2">
+<h2>File - New File - R Markdown - From Template -Flexdashboard</h2>
+<div class="figure">
+<img src="./image1.PNG" alt="starting with flexdashboard" />
+<p class="caption">starting with flexdashboard</p>
+</div>
+</div>
+<div id="you-will-be-presented-with-a-file-similar-to-this" class="section level2">
+<h2><em>You will be presented with a file similar to this</em></h2>
+<div class="figure">
+<img src="./image2.PNG" alt="starting with flexdashboard" />
+<p class="caption">starting with flexdashboard</p>
+</div>
+</div>
+<div id="and-you-can-insert-your-code-chunks-as-you-wish." class="section level2">
+<h2><em>And you can insert your code chunks as you wish.</em></h2>
+</div>
+<div id="lets-get-started-with-text-mining." class="section level2">
+<h2><em>Let’s get started with text mining.</em></h2>
+</div>
+<div id="first-we-will-read-a-csv-file-and-store-it-into-a-data-frame.-use-the-following-sample-to-read-csv-files." class="section level2">
+<h2><em>First we will read a csv file and store it into a data frame. Use the following sample to read csv files.</em></h2>
+<pre class="r"><code>result&lt;-Batting%&gt;%
+        filter(playerID==&#39;ruthba01&#39;)%&gt;%
+        select(yearID,SO,HR)</code></pre>
+</div>
+<div id="now-add-the-following-code-blocks-into-your-code-sections." class="section level2">
+<h2>Now add the following code blocks into your code sections.</h2>
+<pre class="r"><code>ggplot()+
+  geom_histogram(data = result,aes(x=HR),bins =5,color=&#39;blue&#39;,fill=&#39;brown&#39;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>ggplot()+
+  geom_point(data = result,aes(x=SO,y=HR))+
+  xlab(&quot;Strikeout&quot;)+
+  ylab(&#39;homruns&#39;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<pre class="r"><code>ggplot()+
+  geom_point(data = result,aes(x=yearID,y=HR))+
+  geom_line(data = result,aes(x=yearID,y=HR))+
+  xlab(&#39;YEAR&#39;)+
+  ylab(&quot;homeruns&quot;)</code></pre>
+<p><img src="/post/2017-12-11-flexdashboard_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+</div>
